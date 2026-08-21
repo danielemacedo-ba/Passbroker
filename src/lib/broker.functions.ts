@@ -166,7 +166,7 @@ export const adminCurateLead = createServerFn({ method: "POST" })
   .inputValidator((d: CurateInput) => d)
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const patch: Record<string, unknown> =
+    const patch =
       data.acao === "aprovar"
         ? {
             status: "aprovado",
