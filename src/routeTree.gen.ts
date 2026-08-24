@@ -14,6 +14,9 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated/painel'
 import { Route as AuthenticatedPainelIndexRouteImport } from './routes/_authenticated/painel/index'
+import { Route as AuthenticatedPainelAdminRouteImport } from './routes/_authenticated/painel/admin'
+import { Route as AuthenticatedPainelFinanceiroRouteImport } from './routes/_authenticated/painel/financeiro'
+import { Route as AuthenticatedPainelMeusLeadsRouteImport } from './routes/_authenticated/painel/meus-leads'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
 
 const IndexRoute = IndexRouteImport.update({
@@ -41,6 +44,24 @@ const AuthenticatedPainelIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedPainelRoute,
   } as any)
+const AuthenticatedPainelAdminRoute =
+  AuthenticatedPainelAdminRouteImport.update({
+    id: '/admin',
+    path: '/admin',
+    getParentRoute: () => AuthenticatedPainelRoute,
+  } as any)
+const AuthenticatedPainelFinanceiroRoute =
+  AuthenticatedPainelFinanceiroRouteImport.update({
+    id: '/financeiro',
+    path: '/financeiro',
+    getParentRoute: () => AuthenticatedPainelRoute,
+  } as any)
+const AuthenticatedPainelMeusLeadsRoute =
+  AuthenticatedPainelMeusLeadsRouteImport.update({
+    id: '/meus-leads',
+    path: '/meus-leads',
+    getParentRoute: () => AuthenticatedPainelRoute,
+  } as any)
 const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
   id: '/api/public/leads',
   path: '/api/public/leads',
@@ -51,12 +72,18 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/painel': typeof AuthenticatedPainelRouteWithChildren
+  '/painel/admin': typeof AuthenticatedPainelAdminRoute
+  '/painel/financeiro': typeof AuthenticatedPainelFinanceiroRoute
+  '/painel/meus-leads': typeof AuthenticatedPainelMeusLeadsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/painel/': typeof AuthenticatedPainelIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/painel/admin': typeof AuthenticatedPainelAdminRoute
+  '/painel/financeiro': typeof AuthenticatedPainelFinanceiroRoute
+  '/painel/meus-leads': typeof AuthenticatedPainelMeusLeadsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/painel': typeof AuthenticatedPainelIndexRoute
 }
@@ -66,20 +93,41 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/painel': typeof AuthenticatedPainelRouteWithChildren
+  '/_authenticated/painel/admin': typeof AuthenticatedPainelAdminRoute
+  '/_authenticated/painel/financeiro': typeof AuthenticatedPainelFinanceiroRoute
+  '/_authenticated/painel/meus-leads': typeof AuthenticatedPainelMeusLeadsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
   '/_authenticated/painel/': typeof AuthenticatedPainelIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/painel' | '/api/public/leads' | '/painel/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/painel'
+    | '/painel/admin'
+    | '/painel/financeiro'
+    | '/painel/meus-leads'
+    | '/api/public/leads'
+    | '/painel/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/api/public/leads' | '/painel'
+  to:
+    | '/'
+    | '/auth'
+    | '/painel/admin'
+    | '/painel/financeiro'
+    | '/painel/meus-leads'
+    | '/api/public/leads'
+    | '/painel'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/painel'
+    | '/_authenticated/painel/admin'
+    | '/_authenticated/painel/financeiro'
+    | '/_authenticated/painel/meus-leads'
     | '/api/public/leads'
     | '/_authenticated/painel/'
   fileRoutesById: FileRoutesById
@@ -128,6 +176,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPainelIndexRouteImport
       parentRoute: typeof AuthenticatedPainelRoute
     }
+    '/_authenticated/painel/admin': {
+      id: '/_authenticated/painel/admin'
+      path: '/admin'
+      fullPath: '/painel/admin'
+      preLoaderRoute: typeof AuthenticatedPainelAdminRouteImport
+      parentRoute: typeof AuthenticatedPainelRoute
+    }
+    '/_authenticated/painel/financeiro': {
+      id: '/_authenticated/painel/financeiro'
+      path: '/financeiro'
+      fullPath: '/painel/financeiro'
+      preLoaderRoute: typeof AuthenticatedPainelFinanceiroRouteImport
+      parentRoute: typeof AuthenticatedPainelRoute
+    }
+    '/_authenticated/painel/meus-leads': {
+      id: '/_authenticated/painel/meus-leads'
+      path: '/meus-leads'
+      fullPath: '/painel/meus-leads'
+      preLoaderRoute: typeof AuthenticatedPainelMeusLeadsRouteImport
+      parentRoute: typeof AuthenticatedPainelRoute
+    }
     '/api/public/leads': {
       id: '/api/public/leads'
       path: '/api/public/leads'
@@ -139,10 +208,16 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedPainelRouteChildren {
+  AuthenticatedPainelAdminRoute: typeof AuthenticatedPainelAdminRoute
+  AuthenticatedPainelFinanceiroRoute: typeof AuthenticatedPainelFinanceiroRoute
+  AuthenticatedPainelMeusLeadsRoute: typeof AuthenticatedPainelMeusLeadsRoute
   AuthenticatedPainelIndexRoute: typeof AuthenticatedPainelIndexRoute
 }
 
 const AuthenticatedPainelRouteChildren: AuthenticatedPainelRouteChildren = {
+  AuthenticatedPainelAdminRoute: AuthenticatedPainelAdminRoute,
+  AuthenticatedPainelFinanceiroRoute: AuthenticatedPainelFinanceiroRoute,
+  AuthenticatedPainelMeusLeadsRoute: AuthenticatedPainelMeusLeadsRoute,
   AuthenticatedPainelIndexRoute: AuthenticatedPainelIndexRoute,
 }
 
